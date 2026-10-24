@@ -1,0 +1,25 @@
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Test and tool caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local environment
+.env
+
+# Local medical images and data
+data/
+*.dcm
+*.dicom
+
+# Editor and OS files
+.vscode/
+.DS_Store
+Thumbs.db
+dicom_preview.png
