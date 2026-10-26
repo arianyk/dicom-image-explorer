@@ -23,3 +23,5 @@ data/
 .DS_Store
 Thumbs.db
 dicom_preview.png
+dicom_original.png
+dicom_ct_windowed.png

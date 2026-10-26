@@ -42,14 +42,13 @@ def get_metadata(dataset):
     }
 
 
-def display_image(image, title="DICOM Image"):
+
+def display_image(image, title="DICOM Image", output_path="dicom_preview.png"):
     """Save a grayscale image as a PNG file."""
     import matplotlib
     matplotlib.use("Agg")
 
     import matplotlib.pyplot as plt
-
-    output_path = "dicom_preview.png"
 
     plt.figure(figsize=(7, 7))
     plt.imshow(image, cmap="gray")
@@ -122,18 +121,24 @@ def main():
     if getattr(dataset, "Modality", "") == "CT":
         image_hu = convert_to_hounsfield(dataset)
 
-    lung_window = apply_window(
-        image_hu,
-        center=-600,
-        width=1500,
-    )
+        lung_window = apply_window(
+            image_hu,
+            center=-600,
+            width=1500,
+        )
+
+        display_image(
+            lung_window,
+            title="CT Lung Window",
+            output_path="dicom_ct_windowed.png",
+        )
 
     display_image(
-        lung_window,
-        title="CT Lung Window",
+        image,
+        title="Original DICOM Image",
+        output_path="dicom_original.png",
     )
 
-    display_image(image)
 
 
 if __name__ == "__main__":

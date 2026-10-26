@@ -2,7 +2,11 @@
 import numpy as np
 import pytest
 
-from dicom_explorer import convert_to_hounsfield, apply_window
+from dicom_explorer import (
+    convert_to_hounsfield,
+    apply_window,
+    display_image,
+)
 
 
 class FakeDataset:
@@ -44,3 +48,22 @@ def test_apply_window():
 def test_apply_window_rejects_zero_width():
     with pytest.raises(ValueError, match="positive"):
         apply_window(np.array([0]), center=0, width=0)
+
+
+
+def test_display_image_saves_png(tmp_path):
+    image = np.array([
+        [0, 100],
+        [150, 255],
+    ])
+
+    output_file = tmp_path / "test_preview.png"
+
+    display_image(
+        image,
+        title="Test Image",
+        output_path=str(output_file),
+    )
+
+    assert output_file.exists()
+    assert output_file.stat().st_size > 0
